@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <title>The Evolution - AlphaApp</title>
+    
+    <!-- Styling -->
+    <link rel="stylesheet" type="text/css" href="./styles/custom.css">
+
+    <!-- Load Modules -->
+    <script src="./scripts/map.js"></script>
+    <script src="./scripts/objects.js"></script>
+    <script src="./scripts/characters.js"></script>
+    <script src="./scripts/engine.js"></script>
+  </head>
+  <body>
+    <script>
+      // TODO: Firefox has a security flaw - https://www.w3.org/TR/CSP/ (reference to error)
+      var map;
+      var markers = [];
+      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var labelIndex = 0;      
+      var currentCoordinates = {lat: 33.678, lng: -116.243};  
+
+      // Engine
+      function initMap() {
+        // Load custom map
+        maps.generateCustomMap();
+
+        // Place Main Character
+        characters.generateMainCharacter(google);
+      }
+
+      // Generate Random Objects
+      var generateObjects = setInterval(myTimer, 3000);
+      function myTimer() { objectGenerator.ObjMarkers(currentCoordinates); }
+    </script>
+    <script src="./scripts/debug.js"></script>
+    <div id="map"></div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCptCv0cVk7cSFAaTn-kYpxEShFD6OVjSk&callback=initMap">
+    </script>
+  </body>
+</html>
