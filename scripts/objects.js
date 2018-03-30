@@ -1,6 +1,5 @@
 var objectGenerator = {
 
-    // In the following example, markers appear when the user clicks on the map.
     // The markers are stored in an array.
     // The user can then click an option to hide, show or delete the markers.
     // Adds a marker to the map and push to the array.
@@ -26,12 +25,16 @@ var objectGenerator = {
     },
 
     myTimer: function (jsonCoordinates) {
-        // window.alert(haightAshbury.lat);
         return ObjMarkers(jsonCoordinates);
+      },
+
+    myTimerDel: function () {
+        return deleteMarkers();
       },
 
     // Randomize markers and push to array.
     ObjMarkers: function(loc) {
+        //alert(loc.alert);
         var latRand;
         var lonRand;        
         var objs = Math.floor(Math.random() * 3) + 1;       
