@@ -4,6 +4,7 @@ var maps = {
             zoom: 20,
             center: currentCoordinates,
             //mapTypeId: 'terrain'
+            disableDefaultUI: true,
 
             styles: [
             {elementType: 'labels', stylers: [{visibility: 'off'}]},

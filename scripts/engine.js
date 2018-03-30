@@ -9,6 +9,6 @@ var gameEngine = {
 
       // This event listener will call addMarker()
       objectGenerator.ObjMarkers(currentCoordinates);
-      //window.alert(haightAshbury.lat);
+      //window.alert(currentCoordinates.lat);
     }
 };
