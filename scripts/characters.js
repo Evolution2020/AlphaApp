@@ -4,7 +4,7 @@ var characters = {
             map: map,
             sName: "Leader",
             position: currentCoordinates,
-            icon: "./icons/people.png"
+            icon: "./images/people.png"
         });
     return lead;
     }
