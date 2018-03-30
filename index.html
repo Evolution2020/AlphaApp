@@ -4,7 +4,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
 
-    <title>The Evolution - AlphaApp</title>
+    <title>Evolution2020 - AlphaApp</title>
     
     <!-- Styling -->
     <link rel="stylesheet" type="text/css" href="./styles/custom.css">
@@ -19,10 +19,13 @@
     <script>
       // TODO: Firefox has a security flaw - https://www.w3.org/TR/CSP/ (reference to error)
       var map;
+      var lead;
       var markers = [];
       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       var labelIndex = 0;      
-      var currentCoordinates = {lat: 33.678, lng: -116.243};  
+      var currentCoordinates = {lat: 33.678, lng: -116.243};
+      var mouseClickStartStop = 1;
+      var circle;
 
       // Engine
       function initMap() {
@@ -30,12 +33,31 @@
         maps.generateCustomMap();
 
         // Place Main Character
-        characters.generateMainCharacter(google);
-      }
+        var leadchar = characters.generateMainCharacter();
 
+         google.maps.event.addListener(map, 'click', function (event) {
+                mouseClickStartStop = mouseClickStartStop * (-1);
+                //alert(mouseClickStartStop);
+          });
+
+         google.maps.event.addListener(map, 'mousemove', function (e) {
+          if (mouseClickStartStop==-1){
+            //alert("move now");
+            leadchar.setPosition(e.latLng);
+            currentCoordinates = {lat: leadchar.getPosition().lat(), lng: leadchar.getPosition().lng()};
+            //alert(leadchar.getPosition().lat());
+          }
+         });
+      }
+  
       // Generate Random Objects
       var generateObjects = setInterval(myTimer, 3000);
       function myTimer() { objectGenerator.ObjMarkers(currentCoordinates); }
+
+      // Removes all Random objects from map at one go-- every 'n' milli seconds
+      var removeObjects = setInterval(myTimerDel, 50000);
+      function myTimerDel() { objectGenerator.deleteMarkers(); }
+
     </script>
     <script src="./scripts/debug.js"></script>
     <div id="map"></div>
