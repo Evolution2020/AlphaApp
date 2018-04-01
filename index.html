@@ -14,6 +14,7 @@
     <script src="./scripts/objects.js"></script>
     <script src="./scripts/characters.js"></script>
     <script src="./scripts/engine.js"></script>
+    <script src="./scripts/json.js"></script>
   </head>
   <body>
     <script>
@@ -26,11 +27,84 @@
       var currentCoordinates = {lat: 33.678, lng: -116.243};
       var mouseClickStartStop = 1;
       var circle;
+      var iconBase = "./images/"
+      //var json1 = objJson.jsonDb();
+        
+        
+    var json = [
+          {
+            "id": 1,
+            "category": "metal",
+            "group": "weapon",
+            "class": "bow",
+            "name": "compound bow",
+            "weight": 10,
+            "value": 500,
+            "maxPower": 7,
+            "icon": "red.png"
+          },
+          {
+            "id": 2,
+            "category": "tool",
+            "group": "net",
+            "class": "fishing net",
+            "name": "midwater trawl",
+            "weight": 10,
+            "value": 10,
+            "maxPower": 0,
+            "icon": "red.png"
+          },
+          {
+            "id": 3,
+            "category": "creature",
+            "group": "animal",
+            "class": "tiger",
+            "name": "bengal tiger",
+            "weight": 250,
+            "value": 10000,
+            "maxPower": 8,
+            "icon": "red.png"
+          },
+          {
+            "id": 4,
+            "category": "creature",
+            "group": "bird",
+            "class": "peacock",
+            "name": "white peacock",
+            "weight": 25,
+            "value": 2500,
+            "maxPower": 7,
+            "icon": "red.png"
+          },
+          {
+            "id": 5,
+            "category": "collectable",
+            "group": "toy",
+            "class": "teddy bear",
+            "name": "lush bear",
+            "weight": 5,
+            "value": 10,
+            "maxPower": 0,
+            "icon": "red.png"
+          },
+          {
+            "id": 6,
+            "category": "food",
+            "group": "fruit",
+            "class": "apple",
+            "name": "green apple",
+            "weight": 1,
+            "value": 1,
+            "maxPower": 0,
+            "icon": "red.png"
+          }
+    ];    
+        
 
       // Engine
       function initMap() {
         // Load custom map
-        maps.generateCustomMap();
+        x=maps.generateCustomMap();
 
         // Place Main Character
         var leadchar = characters.generateMainCharacter();
@@ -38,6 +112,8 @@
          google.maps.event.addListener(map, 'click', function (event) {
                 mouseClickStartStop = mouseClickStartStop * (-1);
                 //alert(mouseClickStartStop);
+        // Sets the lead character as center of the map     
+                map.setCenter(leadchar.getPosition());
           });
 
          google.maps.event.addListener(map, 'mousemove', function (e) {
@@ -48,6 +124,7 @@
             //alert(leadchar.getPosition().lat());
           }
          });
+          
       }
   
       // Generate Random Objects
