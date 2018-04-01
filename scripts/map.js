@@ -1,7 +1,7 @@
 var maps = {
     generateCustomMap: function(){
        return map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
+            zoom: 18,
             center: currentCoordinates,
             //mapTypeId: 'terrain',
             //mapTypeId: 'satellite'
