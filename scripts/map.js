@@ -1,9 +1,10 @@
 var maps = {
     generateCustomMap: function(){
        return map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 20,
+            zoom: 16,
             center: currentCoordinates,
-            //mapTypeId: 'terrain'
+            //mapTypeId: 'terrain',
+            //mapTypeId: 'satellite'
             disableDefaultUI: true,
 
             styles: [
