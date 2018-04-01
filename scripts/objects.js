@@ -1,16 +1,42 @@
 var objectGenerator = {
 
+
     // The markers are stored in an array.
     // The user can then click an option to hide, show or delete the markers.
     // Adds a marker to the map and push to the array.
     addMarker: function(location) {
-    var marker = new google.maps.Marker({
-        position: location,
-        label: labels[labelIndex++ % labels.length],
-        map: map
-
-        });
-        return markers.push(marker);        
+        
+        /*
+        for(var i = 0; i < json.length; i++) {
+            var obj = json[i];
+            //console.log(obj.id);
+            //alert(obj.id);
+        }
+        */
+        
+        var pickJsonObject = json[Math.round(Math.random()*json.length)];
+        
+        //alert(pickJsonObject.name);
+        //alert(location.lat);
+        var marker = new google.maps.Marker({
+            position: location,
+            //label: labels[labelIndex++ % labels.length],
+            label: pickJsonObject.class,
+            map: map,
+            lat: location.lat,
+            lng: location.lng,
+            id: pickJsonObject.id,
+            category: pickJsonObject.category,
+            group: pickJsonObject.group,
+            class: pickJsonObject.class,
+            name: pickJsonObject.name,
+            weight: pickJsonObject.weight,
+            value: pickJsonObject.value,
+            maxPower: pickJsonObject.maxPower,
+            icon: iconBase + pickJsonObject.icon
+            });
+            //alert("x");
+            return markers.push(marker);
     },
 
     // Removes the markers from the map, but keeps them in the array.
