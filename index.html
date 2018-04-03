@@ -21,6 +21,8 @@
       // TODO: Firefox has a security flaw - https://www.w3.org/TR/CSP/ (reference to error)
       var map;
       var lead;
+      var score=0;
+      var power=0;
       var markers = [];
       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       var labelIndex = 0;      
@@ -104,16 +106,16 @@
       // Engine
       function initMap() {
         // Load custom map
-        x=maps.generateCustomMap();
+        maps.generateCustomMap();
 
         // Place Main Character
         var leadchar = characters.generateMainCharacter();
 
          google.maps.event.addListener(map, 'click', function (event) {
                 mouseClickStartStop = mouseClickStartStop * (-1);
-                //alert(mouseClickStartStop);
         // Sets the lead character as center of the map     
-               // map.setCenter(leadchar.getPosition());
+                //map.setCenter(leadchar.getPosition());
+                //collision(leadchar);
           });
 
          google.maps.event.addListener(map, 'mousemove', function (e) {
@@ -122,6 +124,7 @@
             leadchar.setPosition(e.latLng);
             currentCoordinates = {lat: leadchar.getPosition().lat(), lng: leadchar.getPosition().lng()};
             //alert(leadchar.getPosition().lat());
+            collision(leadchar);
           }
          });
           
@@ -135,11 +138,33 @@
       var removeObjects = setInterval(myTimerDel, 50000);
       function myTimerDel() { objectGenerator.deleteMarkers(); }
 
+        
+     // Collision detection, Score addition and Object Removal from map and Spliced from array
+     function collision(leadchar){	
+        //alert(leadchar.getPosition().lat());
+        //alert("Test");
+        markerCount = markers.length;
+        for (var i = 0; i < markerCount; i++) {
+            objectCoordinates = {lat: markers[i].lat,lng: markers[i].lng};            
+            distance = google.maps.geometry.spherical.computeDistanceBetween(leadchar.getPosition(),markers[i].getPosition());
+            //markers[i].setMap(null);
+            if(distance<20){
+                //alert(markers[i].name);
+                markers[i].setMap(null);
+                score++;
+                power = power + markers[i].value;
+                //alert(power);
+                markers.splice(i, 1);
+                markerCount--;
+            }
+        }
+     }
+
     </script>
     <script src="./scripts/debug.js"></script>
     <div id="map"></div>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCptCv0cVk7cSFAaTn-kYpxEShFD6OVjSk&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCptCv0cVk7cSFAaTn-kYpxEShFD6OVjSk&callback=initMap&libraries=geometry">
     </script>
   </body>
 </html>
