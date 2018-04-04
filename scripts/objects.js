@@ -7,9 +7,9 @@ var objectGenerator = {
     addMarker: function(location) {
        
         // Randomly select Object from JSON
-        // pickJsonObject is array, if 6 we must remove 1 integer
+        // pickJsonObject is array, if selectJsonObject is same length as it's length we must remove 1 integer
         var selectJsonObject = Math.round(Math.random()*json.length); 
-        if(selectJsonObject == 6) selectJsonObject = selectJsonObject - 1;
+        if(selectJsonObject == json.length) selectJsonObject = selectJsonObject - 1;
         var pickJsonObject = json[selectJsonObject];
         
         var marker = new google.maps.Marker({
