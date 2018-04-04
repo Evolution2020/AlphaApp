@@ -63,4 +63,5 @@ var objJson = {
           }
         ];
         return json;
-    };
+    }
+  }

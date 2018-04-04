@@ -5,22 +5,15 @@ var objectGenerator = {
     // The user can then click an option to hide, show or delete the markers.
     // Adds a marker to the map and push to the array.
     addMarker: function(location) {
+       
+        // Randomly select Object from JSON
+        // pickJsonObject is array, if 6 we must remove 1 integer
+        var selectJsonObject = Math.round(Math.random()*json.length); 
+        if(selectJsonObject == 6) selectJsonObject = selectJsonObject - 1;
+        var pickJsonObject = json[selectJsonObject];
         
-        /*
-        for(var i = 0; i < json.length; i++) {
-            var obj = json[i];
-            //console.log(obj.id);
-            //alert(obj.id);
-        }
-        */
-        
-        var pickJsonObject = json[Math.round(Math.random()*json.length)];
-        
-        //alert(pickJsonObject.name);
-        //alert(location.lat);
         var marker = new google.maps.Marker({
             position: location,
-            //label: labels[labelIndex++ % labels.length],
             label: pickJsonObject.class,
             map: map,
             lat: location.lat,
@@ -35,7 +28,6 @@ var objectGenerator = {
             maxPower: pickJsonObject.maxPower,
             icon: iconBase + pickJsonObject.icon
             });
-            //alert("x");
             return markers.push(marker);
     },
 
@@ -60,11 +52,9 @@ var objectGenerator = {
 
     // Randomize markers and push to array.
     ObjMarkers: function(loc) {
-        //alert(loc.alert);
         var latRand;
         var lonRand;        
         var objs = Math.floor(Math.random() * 3) + 1;       
-        //var objs = 3;
         var MarkLoc;
         x = loc.lat;
         y = loc.lng;
