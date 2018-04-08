@@ -9,7 +9,8 @@ var objJson = {
             "name": "compound bow",
             "weight": 10,
             "value": 500,
-            "maxPower": 7
+            "maxPower": 7,
+            "icon": "red.png"
           },
           {
             "id": 2,
@@ -19,7 +20,8 @@ var objJson = {
             "name": "midwater trawl",
             "weight": 10,
             "value": 10,
-            "maxPower": 0
+            "maxPower": 0,
+            "icon": "red.png"
           },
           {
             "id": 3,
@@ -29,7 +31,8 @@ var objJson = {
             "name": "bengal tiger",
             "weight": 250,
             "value": 10000,
-            "maxPower": 8
+            "maxPower": 8,
+            "icon": "red.png"
           },
           {
             "id": 4,
@@ -39,7 +42,8 @@ var objJson = {
             "name": "white peacock",
             "weight": 25,
             "value": 2500,
-            "maxPower": 7
+            "maxPower": 7,
+            "icon": "red.png"
           },
           {
             "id": 5,
@@ -49,7 +53,8 @@ var objJson = {
             "name": "lush bear",
             "weight": 5,
             "value": 10,
-            "maxPower": 0
+            "maxPower": 0,
+            "icon": "red.png"
           },
           {
             "id": 6,
@@ -59,9 +64,10 @@ var objJson = {
             "name": "green apple",
             "weight": 1,
             "value": 1,
-            "maxPower": 0
+            "maxPower": 0,
+            "icon": "red.png"
           }
-        ];
-        return json;
-    }
+    ];  
+    return json;
   }
+}

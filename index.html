@@ -6,165 +6,55 @@
 
     <title>Evolution2020 - AlphaApp</title>
     
-    <!-- Styling -->
     <link rel="stylesheet" type="text/css" href="./styles/custom.css">
-
-    <!-- Load Modules -->
+    <script src="./scripts/json.js"></script>
     <script src="./scripts/map.js"></script>
     <script src="./scripts/objects.js"></script>
     <script src="./scripts/characters.js"></script>
     <script src="./scripts/engine.js"></script>
-    <script src="./scripts/json.js"></script>
-  </head>
-  <body>
+    <script src="./scripts/debug.js"></script>
     <script>
-      // TODO: Firefox has a security flaw - https://www.w3.org/TR/CSP/ (reference to error)
-      var map;
-      var lead;
-      var score=0;
-      var power=0;
-      var markers = [];
-      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      var labelIndex = 0;      
-      var currentCoordinates = {lat: 33.678, lng: -116.243};
-      var mouseClickStartStop = 1;
-      var circle;
-      var iconBase = "./images/"
-      //var json1 = objJson.jsonDb();
-        
-        
-    var json = [
-          {
-            "id": 1,
-            "category": "metal",
-            "group": "weapon",
-            "class": "bow",
-            "name": "compound bow",
-            "weight": 10,
-            "value": 500,
-            "maxPower": 7,
-            "icon": "red.png"
-          },
-          {
-            "id": 2,
-            "category": "tool",
-            "group": "net",
-            "class": "fishing net",
-            "name": "midwater trawl",
-            "weight": 10,
-            "value": 10,
-            "maxPower": 0,
-            "icon": "red.png"
-          },
-          {
-            "id": 3,
-            "category": "creature",
-            "group": "animal",
-            "class": "tiger",
-            "name": "bengal tiger",
-            "weight": 250,
-            "value": 10000,
-            "maxPower": 8,
-            "icon": "red.png"
-          },
-          {
-            "id": 4,
-            "category": "creature",
-            "group": "bird",
-            "class": "peacock",
-            "name": "white peacock",
-            "weight": 25,
-            "value": 2500,
-            "maxPower": 7,
-            "icon": "red.png"
-          },
-          {
-            "id": 5,
-            "category": "collectable",
-            "group": "toy",
-            "class": "teddy bear",
-            "name": "lush bear",
-            "weight": 5,
-            "value": 10,
-            "maxPower": 0,
-            "icon": "red.png"
-          },
-          {
-            "id": 6,
-            "category": "food",
-            "group": "fruit",
-            "class": "apple",
-            "name": "green apple",
-            "weight": 1,
-            "value": 1,
-            "maxPower": 0,
-            "icon": "red.png"
-          }
-    ];    
-        
+    // TODO: Firefox has a security flaw - https://www.w3.org/TR/CSP/ (reference to error)
+    var map, lead, circle, leadChar;
+    var score, power, labelIndex = 0;
+    var markers = [];
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var currentCoordinates = {lat: 33.678, lng: -116.243};
+    var mouseClickStartStop = 1;
+    var iconBase = "./images/"
 
-      // Engine
-      function initMap() {
-        // Load custom map
+    // Load static object Data
+    var json = objJson.jsonDb();
+
+    function initMap() {
+
+        // Generate Map, Characters & Objects
         maps.generateCustomMap();
+        leadChar = characters.generateMainCharacter();
+        setInterval(function() objectGenerator.ObjMarkers(currentCoordinates), 3000);
+        setInterval(function() objectGenerator.deleteMarkers, 50000);
 
-        // Place Main Character
-        var leadchar = characters.generateMainCharacter();
+        gameEngine.clickMonitor();
 
-         google.maps.event.addListener(map, 'click', function (event) {
-                mouseClickStartStop = mouseClickStartStop * (-1);
-        // Sets the lead character as center of the map     
-                //map.setCenter(leadchar.getPosition());
-                //collision(leadchar);
-          });
+        // Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
 
-         google.maps.event.addListener(map, 'mousemove', function (e) {
-          if (mouseClickStartStop==-1){
-            //alert("move now");
-            leadchar.setPosition(e.latLng);
-            currentCoordinates = {lat: leadchar.getPosition().lat(), lng: leadchar.getPosition().lng()};
-            //alert(leadchar.getPosition().lat());
-            collision(leadchar);
-          }
-         });
-          
-      }
-  
-      // Generate Random Objects
-      var generateObjects = setInterval(myTimer, 3000);
-      function myTimer() { objectGenerator.ObjMarkers(currentCoordinates); }
 
-      // Removes all Random objects from map at one go-- every 'n' milli seconds
-      var removeObjects = setInterval(myTimerDel, 50000);
-      function myTimerDel() { objectGenerator.deleteMarkers(); }
 
-        
-     // Collision detection, Score addition and Object Removal from map and Spliced from array
-     function collision(leadchar){	
-        //alert(leadchar.getPosition().lat());
-        //alert("Test");
-        markerCount = markers.length;
-        for (var i = 0; i < markerCount; i++) {
-            objectCoordinates = {lat: markers[i].lat,lng: markers[i].lng};            
-            distance = google.maps.geometry.spherical.computeDistanceBetween(leadchar.getPosition(),markers[i].getPosition());
-            //markers[i].setMap(null);
-            if(distance<20){
-                //alert(markers[i].name);
-                markers[i].setMap(null);
-                score++;
-                power = power + markers[i].value;
-                //alert(power);
-                markers.splice(i, 1);
-                markerCount--;
-            }
-        }
-     }
+          // Add the circle for this city to the map.
+          gameEngine.menuButton(currentCoordinates);
+
+
+
+    }
 
     </script>
-    <script src="./scripts/debug.js"></script>
+  </head>
+  <body>
     <div id="map"></div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCptCv0cVk7cSFAaTn-kYpxEShFD6OVjSk&callback=initMap&libraries=geometry">
     </script>
+
   </body>
 </html>
