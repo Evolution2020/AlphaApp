@@ -31,8 +31,13 @@
         // Generate Map, Characters & Objects
         maps.generateCustomMap();
         leadChar = characters.generateMainCharacter();
-        setInterval(function() objectGenerator.ObjMarkers(currentCoordinates), 3000);
-        setInterval(function() objectGenerator.deleteMarkers, 50000);
+     // Generate Random Objects
+      var generateObjects = setInterval(myTimer, 3000);
+      function myTimer() { objectGenerator.ObjMarkers(currentCoordinates); }
+
+      // Removes all Random objects from map at one go-- every 'n' milli seconds
+      var removeObjects = setInterval(myTimerDel, 50000);
+      function myTimerDel() { objectGenerator.deleteMarkers(); }
 
         gameEngine.clickMonitor();
 
